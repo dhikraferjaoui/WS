@@ -26,3 +26,4 @@ console.log("test",myObjectJSON);
 var nbMedalsJson = myObjectJSON.results.bindings[0].count.value;
 var nameJson = myObjectJSON.results.bindings[0].human.value;
 nameJson = nameJson.substring(nameJson.lastIndexOf("/")+1).replace('_', ' ');
+document.writeln(nameJson,' : ',nbMedalsJson);
