@@ -23,4 +23,6 @@ var result = String(get_url(request));
 
 var myObjectJSON = JSON.parse(httpGet(result));
 console.log("test",myObjectJSON);
-document.writeln(myObjectJSON.results.bindings[0].count.value);
+var nbMedalsJson = myObjectJSON.results.bindings[0].count.value;
+var nameJson = myObjectJSON.results.bindings[0].human.value;
+nameJson = nameJson.substring(nameJson.lastIndexOf("/")+1).replace('_', ' ');
