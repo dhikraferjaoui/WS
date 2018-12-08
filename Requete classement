@@ -19,3 +19,18 @@ WHERE {
 GROUP BY ?namevent
 ORDER BY (?namevent)
 LIMIT 200
+
+// LIST OF GOLD MEDALIST FOR SUMMER 2016
+
+SELECT DISTINCT *
+WHERE {
+        ?event rdf:type dbo:OlympicEvent.
+               ?event dbo:games ?date .
+               filter contains(?date,"2016 Summer")
+        ?event dbo:goldMedalist ?gold.
+             ?gold dbo:thumbnail ?image.
+             ?gold rdfs:label ?name
+             FILTER langMatches(lang(?name),'en')
+}
+ORDER BY (?event)
+
