@@ -48,3 +48,15 @@ UNION
 ?sport rdfs:label ?label.
 FILTER langMatches(lang(?label),'en')}
 }
+
+
+//renvoie les athlete et leur abstract (seulement pour les abstracts en anglais)
+select distinct ?athlete ?abstract where
+{ 
+{?athlete rdf:type yago:Medalist110305062. ?athlete dbo:abstract ?abstract. FILTER langMatches(lang(?abstract),'en')}
+UNION
+{?athlete rdf:type dbo:bronzeMedalist. ?athlete dbo:abstract ?abstract. FILTER langMatches(lang(?abstract),'en')}
+UNION
+{?athlete rdf:type dbo:silverMedalist. ?athlete dbo:abstract ?abstract. FILTER langMatches(lang(?abstract),'en')}
+UNION
+{?athlete rdf:type dbo:goldMedalist. ?athlete dbo:abstract ?abstract. FILTER langMatches(lang(?abstract),'en')}}
