@@ -26,17 +26,25 @@ UNION
 ?athlete dbp:birthName ?name.}
 }
 
-//trouver les sports de tous les medalist
-select distinct ?sport where{ 
+//Renvoie le tableau des medailles avec leur sport
+select distinct ?athlete ?label where{ 
 {?athlete rdf:type yago:Medalist110305062.
-?athlete dbp:sport ?sport.}
+?athlete dbp:sport ?sport.
+?sport rdfs:label ?label.
+FILTER langMatches(lang(?label),'en')}
  UNION
 {?event dbo:bronzeMedalist ?athlete.
-?athlete dbp:sport ?sport.}
+?athlete dbp:sport ?sport.
+?sport rdfs:label ?label.
+FILTER langMatches(lang(?label),'en')}
 UNION
 {?event dbo:silverMedalist ?athlete.
-?athlete dbp:sport ?sport.}
+?athlete dbp:sport ?sport.
+?sport rdfs:label ?label.
+FILTER langMatches(lang(?label),'en')}
 UNION
 {?event dbo:goldMedalist ?athlete.
-?athlete dbp:sport ?sport.}
+?athlete dbp:sport ?sport.
+?sport rdfs:label ?label.
+FILTER langMatches(lang(?label),'en')}
 }
