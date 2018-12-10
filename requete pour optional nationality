@@ -1,0 +1,12 @@
+SELECT DISTINCT *
+WHERE {
+        ?event rdf:type dbo:OlympicEvent.
+               ?event dbo:games ?date .
+               filter contains(?date,'2016 Summer')
+        ?event dbo:goldMedalist ?gold.
+             ?gold dbo:thumbnail ?image.
+             ?gold rdfs:label ?name
+             FILTER langMatches(lang(?name),'en')
+             OPTIONAL {?gold dbp:nationality ?nationality}
+}
+ORDER BY (?event)
