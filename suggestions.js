@@ -7,3 +7,8 @@ new Awesomplete(input, {
   maxItems: 15,
   filter: Awesomplete.FILTER_STARTSWITH
 });
+
+
+$( "#submit-btn" ).click(function() {
+  alert("ok");
+});
