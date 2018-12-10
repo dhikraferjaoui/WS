@@ -1,0 +1,44 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<style type="text/css">
+</style>
+</head>
+<script>
+function get_url(request) {
+  /*
+   * request: the sparql request
+   * return a string (url)
+   */
+  request = String(request);
+  let url = "https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=";
+  let end = "&format=application%2Fsparql-results%2Bjson&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=30000&debug=on&run=+Run+Query+"
+  return (url+encodeURI(request)+end);
+}
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+function getAllEventsAndWinners(){
+  var request = "SELECT DISTINCT ?namevent (group_concat(DISTINCT ?namebronze;separator=\"|\") as ?names_bronze) (group_concat(DISTINCT ?namesilver;separator=\"|\") as ?names_silver) (group_concat(DISTINCT ?namegold;separator=\"|\") as ?names_gold) WHERE { ?event rdf:type dbo:OlympicEvent. ?event rdfs:label ?namevent .FILTER langMatches(lang(?namevent),'en') ?event dbo:bronzeMedalist ?bronze. ?bronze foaf:name ?namebronze. FILTER langMatches(lang(?namebronze),'en') ?event dbo:silverMedalist ?silver. ?silver foaf:name ?namesilver. FILTER langMatches(lang(?namesilver),'en')?event dbo:goldMedalist ?gold.?gold foaf:name ?namegold.FILTER langMatches(lang(?namegold),'en') } GROUP BY ?namevent ORDER BY (?namevent) LIMIT 200";
+  var result = String(get_url(request));
+  var myObjectJSON = JSON.parse(httpGet(result));
+  console.log("test",myObjectJSON);
+  var eventArr = [];
+  for(let i = 0; i < myObjectJSON.results.bindings.length; ++i){
+    let eventName = myObjectJSON.results.bindings[i].namevent.value;
+      let bronze = myObjectJSON.results.bindings[i].names_bronze.value;
+      let silver = myObjectJSON.results.bindings[i].names_silver.value
+      let gold = myObjectJSON.results.bindings[i].names_gold.value;
+    let toAdd = {'nameEvent': eventName, 'bronze':bronze, 'silver':silver, 'gold':gold};
+      eventArr.push(toAdd);
+  }
+  return eventArr;
+}
+console.log(getAllEventsAndWinners());
+</script>
+    <body></body>
+</html>
