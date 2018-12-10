@@ -7,6 +7,11 @@
     <title>Olymp'IF</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="http://getbootstrap.com.vn/examples/equal-height-columns/equal-height-columns.css" />
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="awesomplete/awesomplete.css" />
+    <script src="awesomplete/awesomplete.js" async></script>
+
   </head>
 
 
@@ -18,16 +23,19 @@
           <a href="#" class="navbar-brand"><strong>Home</strong></a>
         </div>
         <div class="text-right">
-          <input type="text" id="buttonId" placeholder="Search for an Olympic athlete" />
+          <input id="myInput" class="awesomplete" type="text" name="search_athlete" placeholder="Search for an athlete" />
+          <input type="submit" value="Search">
+          <script type="text/javascript" src="suggestions.js"></script>
         </div>
       </div>
     </div>
 
+
     <!--Debut row -->
-    <div class="row mb-2">
+    <div class="row mb-2 row-eq-height">
       <!--Debut présentation général -->
       <div class="col-md-6">
-        <div class="card flex-md-row mb-4 shadow-sm h-md-300">
+        <div class="card flex-md-row mb-4 shadow-sm h-md-300 mx-auto">
           <div class="card-body d-flex flex-column align-items-start">
             <div>
               <h1>Usain Bolt</h1>
@@ -40,7 +48,7 @@
       </div>
       <!--Debut présentation info -->
       <div class="col-md-6">
-        <div class="card flex-md-row mb-4 shadow-sm h-md-300">
+        <div class="card flex-md-row mb-4 shadow-sm h-md-300 mx-auto">
           <div class="card-body d-flex flex-column align-items-start">
             <div id="age">
               Age : 42 years old
@@ -54,11 +62,12 @@
 
     </div> <!-- fin row -->
 
-    <div class="row mb-2">
-      <!--Debut sport -->
-      <div class="card flex-md-row mb-4 shadow-sm h-md-300">
-        <div class="card-body d-flex flex-column align-items-start">
-          <div class="col-md-6" style="width: 400px">
+    <!--Debut row -->
+    <div class="row mb-2 row-eq-height">
+      <!--Debut présentation général -->
+      <div class="col-md-6">
+        <div class="card flex-md-row mb-4 shadow-sm h-md-300 mx-auto">
+          <div class="card-body d-flex flex-column align-items-start">
             <div id="sport-name">
               Sport : Athletism
             </div>
@@ -68,30 +77,27 @@
           </div>
         </div>
       </div>
-      <div class="card flex-md-row mb-4 shadow-sm h-md-300">
-        <div class="card-body d-flex flex-column align-items-start">
-          <div class="col-md-6">
+      <!--Debut présentation info -->
+      <div class="col-md-6">
+        <div class="card flex-md-row mb-4 shadow-sm h-md-300 mx-auto">
+          <div class="card-body d-flex flex-column align-items-start">
             <div id="medals">
               Argent : 2011
               Or : 2012
               Bronze : 2015
             </div>
-            Proin efficitur justo leo, et porttitor purus mollis vitae.
           </div>
         </div>
       </div>
-      <!--Debut pic -->
-      <div class="card flex-md-row mb-4 shadow-sm h-md-300">
+
+      <div class="card flex-md-row mb-4 shadow-sm h-md-300 mx-auto">
         <div class="card-body d-flex flex-column align-items-start">
           <div id="pic" class="img-fluid">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Usain_Bolt_Rio_100m_final_2016i-cr.jpg/280px-Usain_Bolt_Rio_100m_final_2016i-cr.jpg" alt="Pic" />
           </div>
         </div>
       </div>
-    </div><!-- fin row -->
-
-
-
+    </div> <!-- fin row -->
 
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
