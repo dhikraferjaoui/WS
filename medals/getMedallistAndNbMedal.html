@@ -1,0 +1,39 @@
+<html>
+<head>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<style type="text/css">
+</style>
+</head>
+<script>
+function get_url(request) {
+  /*
+   * request: the sparql request
+   * return a string (url)
+   */
+  request = String(request);
+  let url = "https://dbpedia.org/sparql?default-graph-uri=http%3A%2F%2Fdbpedia.org&query=";
+  let end = "&format=application%2Fsparql-results%2Bjson&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=30000&debug=on&run=+Run+Query+"
+  return (url+encodeURI(request)+end);
+}
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+function getMedallistAndNbMedal(){
+    var name = prompt("Please enter your name", "Michael Phelps");
+    var request = "SELECT ?human ?count WHERE{SELECT ?human (count(*) as ?count) WHERE {?event rdf:type dbo:OlympicEvent{?event dbo:bronzeMedalist ?human .  } UNION {?event dbo:silverMedalist ?human} UNION {?event dbo:goldMedalist ?human}?human foaf:name ?nam.FILTER(str(?nam) = \""+ name +"\").}GROUP BY ?human}ORDER BY DESC(?count)";
+    var result = String(get_url(request));
+    var myObjectJSON = JSON.parse(httpGet(result));
+    var nbMedalsJson = myObjectJSON.results.bindings[0].count.value;
+    var nameJson = myObjectJSON.results.bindings[0].human.value;
+    nameJson = nameJson.substring(nameJson.lastIndexOf("/")+1).replace('_', ' ');
+    var toReturn = {'Medallist':nameJson,'NbMedals':nbMedalsJson};
+	return toReturn;
+}
+console.log(getMedallistAndNbMedal());
+</script>
+    <body></body>
+</html>
