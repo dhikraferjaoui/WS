@@ -15,8 +15,7 @@ function get_url(request) {
   let end = "&format=application%2Fsparql-results%2Bjson&CXML_redir_for_subjs=121&CXML_redir_for_hrefs=&timeout=30000&debug=on&run=+Run+Query+"
   return (url+encodeURI(request)+end);
 }
-function httpGet(theUrl)
-{
+function httpGet(theUrl){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
     xmlHttp.send( null );
