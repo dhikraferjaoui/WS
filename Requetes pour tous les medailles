@@ -1,0 +1,42 @@
+//Trouver tous les medalist : (ne marche pas si le lien est asymetrique)
+
+select distinct ?athlete where{ 
+{?athlete rdf:type yago:Medalist110305062.}
+ UNION
+{?event dbo:bronzeMedalist ?athlete.}
+UNION
+{?event dbo:silverMedalist ?athlete.}
+UNION
+{?event dbo:goldMedalist ?athlete.}
+}
+
+//trouver les noms de tous les medalists
+
+select distinct ?name where{ 
+{?athlete rdf:type yago:Medalist110305062.
+?athlete dbp:birthName ?name.}
+ UNION
+{?event dbo:bronzeMedalist ?athlete.
+?athlete dbp:birthName ?name.}
+UNION
+{?event dbo:silverMedalist ?athlete.
+?athlete dbp:birthName ?name.}
+UNION
+{?event dbo:goldMedalist ?athlete.
+?athlete dbp:birthName ?name.}
+}
+
+//trouver les sports de tous les medalist
+select distinct ?sport where{ 
+{?athlete rdf:type yago:Medalist110305062.
+?athlete dbp:sport ?sport.}
+ UNION
+{?event dbo:bronzeMedalist ?athlete.
+?athlete dbp:sport ?sport.}
+UNION
+{?event dbo:silverMedalist ?athlete.
+?athlete dbp:sport ?sport.}
+UNION
+{?event dbo:goldMedalist ?athlete.
+?athlete dbp:sport ?sport.}
+}
