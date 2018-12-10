@@ -15,12 +15,12 @@ function httpGet(theUrl){
   return xmlHttp.responseText;
 }
 function getAllMedallist() {
-  var request = "select distinct ?athlete where{ {?athlete rdf:type yago:Medalist110305062.}UNION{?event dbo:bronzeMedalist ?athlete.}UNION{?event dbo:silverMedalist ?athlete.}UNION{?event dbo:goldMedalist ?athlete.}}";
+  var request = "SELECT ?human WHERE{SELECT ?human (count(*) as ?count) WHERE {?event rdf:type dbo:OlympicEvent{?event dbo:bronzeMedalist ?human .  } UNION {?event dbo:silverMedalist ?human} UNION {?event dbo:goldMedalist ?human}}GROUP BY ?human}ORDER BY DESC(?count)";
   var result = String(get_url(request));
   var myObjectJSON = JSON.parse(httpGet(result));
   var nameJson = [];
   for (let i = 0; i<myObjectJSON.results.bindings.length; ++i){
-    let name = myObjectJSON.results.bindings[i].athlete.value;
+    let name = myObjectJSON.results.bindings[i].human.value;
     name = name.substring(name.lastIndexOf("/")+1).replace('_', ' ');
     let toRemove = name.substring(name.lastIndexOf('(')-1);
     if(toRemove != name){
