@@ -5,6 +5,5 @@ new Awesomplete(input, {
   list: athletes,
   minChars: 1,
   autoFirst: true,
-  maxItems: 15,
-  filter: Awesomplete.FILTER_STARTSWITH
+  maxItems: 15
 });

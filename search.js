@@ -1,3 +1,6 @@
 function search() {
-  window.location.href = "athlete.html#lolilol";
+  var artist = document.getElementById('myInput').value;
+  artist = artist.split(" ").join("_");
+  window.location.href = "athlete.html#" + artist;
+  main();
 }
