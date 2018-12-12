@@ -1,3 +1,4 @@
+
 let athletes = getAllMedallist();
 var input = document.getElementById("myInput");
 new Awesomplete(input, {
