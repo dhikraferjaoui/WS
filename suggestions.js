@@ -1,3 +1,4 @@
+
 let athletes = getAllMedallist();
 var input = document.getElementById("myInput");
 new Awesomplete(input, {
@@ -6,9 +7,4 @@ new Awesomplete(input, {
   autoFirst: true,
   maxItems: 15,
   filter: Awesomplete.FILTER_STARTSWITH
-});
-
-
-$( "#submit-btn" ).click(function() {
-  alert("ok");
 });
