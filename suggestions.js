@@ -1,5 +1,5 @@
 
-/*let athletes = getAllMedallist();
+let athletes = getAllMedallist();
 var input = document.getElementById("myInput");
 new Awesomplete(input, {
   list: athletes,
@@ -18,7 +18,7 @@ $( "#submit-btn" ).click(function() {
 	var myObjectJSON = JSON.parse(httpGet(result));
 	setImage(myObjectJSON.results.bindings[0].image.value);
 	setName(myObjectJSON.results.bindings[0].name.value);
-});*/
+});
 
 function getInfo(name){
 	var request = "SELECT DISTINCT ?name, ?image, ?description WHERE { ?event rdf:type dbo:OlympicEvent{?event dbo:bronzeMedalist ?human.} UNION {?event dbo:silverMedalist ?human.}  UNION {?event dbo:goldMedalist ?human.} ?human dbo:thumbnail ?image. ?human rdfs:label ?name.  FILTER langMatches(lang(?name),'en')  FILTER contains(?name,'"+name+"')  ?human dbo:abstract ?description. FILTER langMatches(lang(?description),'en')}";
