@@ -12,24 +12,22 @@ function get_url(request) {
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, true ); // false for synchronous request
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    //TODO : try to make an asynchronous request
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
 
 //retourne tous les couples (athlete,sport)
 function getAllSports() {
-var request = "select distinct ?athlete ?label where { {?athlete rdf:type yago:Medalist110305062. ?athlete dbp:sport ?sport. ?sport rdfs:label ?label. FILTER langMatches(lang(?label),'en')} UNION {?event dbo:bronzeMedalist ?athlete.?athlete dbp:sport ?sport.?sport rdfs:label ?label. FILTER langMatches(lang(?label),'en')} UNION {?event dbo:silverMedalist ?athlete.?athlete dbp:sport ?sport.?sport rdfs:label ?label. FILTER langMatches(lang(?label),'en')} UNION {?event dbo:goldMedalist ?athlete.?athlete dbp:sport ?sport.?sport rdfs:label ?label.FILTER langMatches(lang(?label),'en')}}";
-console.log(request);
+var request = "SELECT ?athlete ?sport WHERE{SELECT ?athlete ?sport (count(*) as ?count) WHERE {?event rdf:type dbo:OlympicEvent{?event dbo:bronzeMedalist ?athlete .?athlete dbp:sport ?sport.}UNION {?event dbo:silverMedalist ?athlete.?athlete dbp:sport ?sport.}UNION {?event dbo:goldMedalist ?athlete.?athlete dbp:sport ?sport.}}GROUP BY ?athlete ?sport }ORDER BY DESC(?count)";
 var result = String(get_url(request));
-console.log(result);
-console.log(httpGet(result));
 var jsonSport = JSON.parse(httpGet(result));
 var sportsArray = [];
 for(i =0; i<jsonSport.results.bindings.length;i++) {
-	let label= jsonSport.results.bindings[i].label.value;
+	let sport= jsonSport.results.bindings[i].sport.value;
 	let athlete= jsonSport.results.bindings[i].athlete.value;
-	let result = {"sport" : label,"athlete" : athlete};
+	let result = {"sport" : sport,"athlete" : athlete};
 	sportsArray.push(result);
 };
 return(sportsArray);
@@ -37,8 +35,6 @@ return(sportsArray);
 
 //filtre les donnees
 function filterSports(filter){
-	var sportArray = getAllSports().filter(obj =>obj.athlete.includes(filter));
-	return sportArray;
+  var sportArray = getAllSports().filter(obj =>obj.athlete.includes(filter));
+	return sportArray[0].sport;
 }
-
-
